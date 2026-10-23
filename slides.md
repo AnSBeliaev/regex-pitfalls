@@ -384,3 +384,102 @@ class: thesis-slide answer-slide
 
 - **`v` вместо `u`:** множества символов и составные эмодзи. С `u` на одной регулярке смешать нельзя.
 - Синтаксис, в Chrome с 112-го. В нашем 109 нет. **Не пишем**, пока список не догонит.
+
+---
+class: thesis-slide answer-slide
+---
+
+# Модификатор внутри выражения
+
+```js
+/T-\d+.*(?i:проверь)/s.test(log)
+// true и для «ПРОВЕРЬ»: префикс T- как написан
+```
+
+- **Регистр только у куска шаблона**, не у всей регулярки. Раньше либо флаг `i` на всё, либо два шаблона.
+- Синтаксис 2025 года, в нашем 109 нет. **Не пишем**, пока список не догонит.
+
+---
+class: thesis-slide answer-slide
+---
+
+# Свойства юникода
+
+```js
+log.match(/\p{Emoji}/u)  // '👍'
+/\p{Letter}/u.test('М')  // true
+```
+
+- **`\p{Emoji}` вместо самодельного диапазона.** Без флага `u` или `v` это ошибка разбора.
+- С `u` в списке с 2018 года. **Используем.** Составные эмодзи — уже история флага `v`.
+
+---
+class: thesis-slide catalog-slide
+---
+
+# Один поиск
+
+````md magic-move
+```js
+function highlight(log, query) {
+  const re = new RegExp(query)
+  const [, id] = log.match(/T-(\d+)/)
+  return log.replace(re, '<mark>$&</mark>')
+}
+```
+```js {2,4}
+function highlight(log, query) {
+  const re = new RegExp(RegExp.escape(query), 'gu')
+  const [, id] = log.match(/T-(\d+)/)
+  return log.replace(re, (chunk) => '<mark>' + chunk + '</mark>')
+}
+```
+```js {2-9}
+function highlight(log, query) {
+  const re = new RegExp(RegExp.escape(query), 'gdu')
+  let out = ''
+  let last = 0
+  for (const m of log.matchAll(re)) {
+    const [start, end] = m.indices[0]
+    out += log.slice(last, start) + '<mark>' + log.slice(start, end) + '</mark>'
+    last = end
+  }
+  return out + log.slice(last)
+}
+```
+````
+
+<v-switch at="1">
+  <template #0><p>Сырой ввод, первое вхождение, match без проверки.</p></template>
+  <template #1><p>Скобка не ломает поиск, подсвечены оба тикета, эмодзи целый.</p></template>
+  <template #2><p>Подсветка по indices. lastIndex больше не общий.</p></template>
+</v-switch>
+
+<style>
+.slidev-layout.catalog-slide .slidev-code,
+.slidev-layout.catalog-slide pre {
+  font-size: 15px !important;
+  line-height: 22px !important;
+  margin: 0.15rem 0 !important;
+}
+.slidev-layout.catalog-slide p {
+  text-align: left;
+  font-size: 16px;
+  line-height: 1.35;
+  margin: 0.35rem 0 0;
+}
+</style>
+
+---
+class: thesis-slide links-slide
+---
+
+# Шпаргалка в вики
+
+Слайды не справочник. Справочник откроете в ревью.
+
+- **Не мешать `/g` и `test`.**
+- **Не деструктурировать `match` без запасного пути.**
+- **Не класть сырой ввод в `new RegExp`.**
+
+Остальное — на странице в вики: грабли, новый синтаксис, функция было / стало.
