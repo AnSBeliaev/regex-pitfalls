@@ -474,12 +474,10 @@ function highlight(log, query) {
 class: thesis-slide links-slide
 ---
 
-# Шпаргалка в вики
+# Ссылки
 
-Слайды не справочник. Справочник откроете в ревью.
-
-- **Не мешать `/g` и `test`.**
-- **Не деструктурировать `match` без запасного пути.**
-- **Не класть сырой ввод в `new RegExp`.**
-
-Остальное — на странице в вики: грабли, новый синтаксис, функция было / стало.
+- **Не мешать `/g` и `test`.** Не деструктурировать `match` без запасного пути. Не класть сырой ввод в `new RegExp`.
+- **[regex101](https://regex101.com/)** — отладчик, видно сколько шагов занимает матч.
+- **[recheck](https://github.com/makenowjust-labs/recheck)** — ищет суперлинейный перебор.
+- **[MDN, регулярки](https://developer.mozilla.org/en-US/docs/Web/JavaScript/Guide/Regular_expressions)** и **[RegExp.escape](https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Global_Objects/RegExp/escape)**.
+- **[caniuse](https://caniuse.com/)** и `npx browserslist` — как во втором докладе: процент сам по себе не ответ.
