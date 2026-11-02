@@ -131,10 +131,18 @@ class: thesis-slide answer-slide
 
 ```js
 const [, id] = log.match(/T-(\d+)/) ?? []
+// нет T-… → вместо null пустой массив, id будет undefined
+
+const id = log.match(/T-(\d+)/)?.[1]
+// нет T-… → сразу undefined, без TypeError
+
+const match = /T-(\d+)/.exec(log)
+if (!match) return
+const id = match[1]
+// сначала смотрим, нашлось ли что-то, потом берём цифры
 ```
 
-- **`?? []`** — нет совпадения, `id` будет `undefined`, без исключения.
-- Или `log.match(...)?.[1]`, или `exec` и проверка `if (!match)`.
+- **Три способа на выбор.** Первый подменяет `null` пустым массивом. Второй читает цифры через `?.`. Третий длиннее, зато видно проверку.
 
 ---
 class: thesis-slide problem-slide
