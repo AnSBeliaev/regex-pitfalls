@@ -129,17 +129,38 @@ class: thesis-slide answer-slide check-slide
 
 # Сначала проверка
 
+```js
+const [, id] = log.match(/T-(\d+)/)
+// нет T-… → null, TypeError
+```
+
 ````md magic-move
 ```js
+const [, id] = log.match(/T-(\d+)/)
+
+const [, id] = log.match(/T-(\d+)/)
+
 const [, id] = log.match(/T-(\d+)/)
 ```
 ```js {1}
 const [, id] = log.match(/T-(\d+)/) ?? []
+
+const [, id] = log.match(/T-(\d+)/)
+
+const [, id] = log.match(/T-(\d+)/)
 ```
-```js
+```js {3}
+const [, id] = log.match(/T-(\d+)/) ?? []
+
 const id = log.match(/T-(\d+)/)?.[1]
+
+const [, id] = log.match(/T-(\d+)/)
 ```
-```js
+```js {5-7}
+const [, id] = log.match(/T-(\d+)/) ?? []
+
+const id = log.match(/T-(\d+)/)?.[1]
+
 const match = log.match(/T-(\d+)/)
 if (!match) return
 const [, id] = match
@@ -147,24 +168,24 @@ const [, id] = match
 ````
 
 <v-switch at="1">
-  <template #0><p>Нет <code>T-…</code> — <code>null</code>, деструктуризация падает.</p></template>
-  <template #1><p>Вместо <code>null</code> пустой массив, <code>id</code> будет <code>undefined</code>.</p></template>
-  <template #2><p>Нет совпадения — сразу <code>undefined</code>, без <code>TypeError</code>.</p></template>
-  <template #3><p>Сначала проверка, потом цифры. Длиннее, зато видно глазами.</p></template>
+  <template #0><p>Сверху ошибка. Снизу три копии той же строки — правим по очереди.</p></template>
+  <template #1><p>Первая правка: вместо <code>null</code> пустой массив, <code>id</code> будет <code>undefined</code>.</p></template>
+  <template #2><p>Вторая: нет совпадения — сразу <code>undefined</code>, без <code>TypeError</code>.</p></template>
+  <template #3><p>Третья: сначала проверка, потом цифры. Длиннее, зато видно глазами.</p></template>
 </v-switch>
 
 <style>
 .slidev-layout.check-slide .slidev-code,
 .slidev-layout.check-slide pre {
-  font-size: 16px !important;
-  line-height: 24px !important;
-  margin: 0.2rem 0 !important;
+  font-size: 15px !important;
+  line-height: 22px !important;
+  margin: 0.15rem 0 !important;
 }
 .slidev-layout.check-slide p {
   text-align: left;
   font-size: 16px;
   line-height: 1.35;
-  margin: 0.4rem 0 0;
+  margin: 0.35rem 0 0;
 }
 </style>
 
