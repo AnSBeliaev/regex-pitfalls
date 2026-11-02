@@ -124,25 +124,49 @@ const [, id] = log.match(/T-(\d+)/)
 - **На ревью это не заметят:** строка короткая и выглядит нормально. В тесте если кладут лог с номером, `null` не поймают.
 
 ---
-class: thesis-slide answer-slide
+class: thesis-slide answer-slide check-slide
 ---
 
 # Сначала проверка
 
+````md magic-move
 ```js
-const [, id] = log.match(/T-(\d+)/) ?? []
-// нет T-… → вместо null пустой массив, id будет undefined
-
-const id = log.match(/T-(\d+)/)?.[1]
-// нет T-… → сразу undefined, без TypeError
-
-const match = /T-(\d+)/.exec(log)
-if (!match) return
-const id = match[1]
-// сначала смотрим, нашлось ли что-то, потом берём цифры
+const [, id] = log.match(/T-(\d+)/)
 ```
+```js {1}
+const [, id] = log.match(/T-(\d+)/) ?? []
+```
+```js
+const id = log.match(/T-(\d+)/)?.[1]
+```
+```js
+const match = log.match(/T-(\d+)/)
+if (!match) return
+const [, id] = match
+```
+````
 
-- **Три способа на выбор.** Первый подменяет `null` пустым массивом. Второй читает цифры через `?.`. Третий длиннее, зато видно проверку.
+<v-switch at="1">
+  <template #0><p>Нет <code>T-…</code> — <code>null</code>, деструктуризация падает.</p></template>
+  <template #1><p>Вместо <code>null</code> пустой массив, <code>id</code> будет <code>undefined</code>.</p></template>
+  <template #2><p>Нет совпадения — сразу <code>undefined</code>, без <code>TypeError</code>.</p></template>
+  <template #3><p>Сначала проверка, потом цифры. Длиннее, зато видно глазами.</p></template>
+</v-switch>
+
+<style>
+.slidev-layout.check-slide .slidev-code,
+.slidev-layout.check-slide pre {
+  font-size: 16px !important;
+  line-height: 24px !important;
+  margin: 0.2rem 0 !important;
+}
+.slidev-layout.check-slide p {
+  text-align: left;
+  font-size: 16px;
+  line-height: 1.35;
+  margin: 0.4rem 0 0;
+}
+</style>
 
 ---
 class: thesis-slide problem-slide
