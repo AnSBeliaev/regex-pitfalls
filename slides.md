@@ -386,11 +386,13 @@ class: thesis-slide answer-slide
 
 ```js
 for (const match of log.matchAll(/T-(\d+)/gd)) {
-  const [start, end] = match.indices[0]
+  const [start, end] = match.indices[0] // весь T-10421
+  const [from, to] = match.indices[1]   // только 10421
 }
 ```
 
-- **`indices` — откуда по куда вырезать** для подсветки. Раньше считали `index` плюс длина.
+- **`indices` — пары `[start, end]` для подсветки.** Раньше: `index` плюс длина, для скобок ещё `indexOf` внутри совпадения — при повторе цифр легко взять не то место.
+- **Границы сразу под `slice` / `substring`:** `end` не входит в отрезок, единицу вычитать не надо.
 - В Chrome с 90-го, в нашем 109 уже есть. **Используем.**
 
 ---
