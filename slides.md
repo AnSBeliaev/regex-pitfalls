@@ -402,14 +402,16 @@ class: thesis-slide answer-slide
 # Именованные группы
 
 ```js
-const match = /T-(?<id>\d+)/.exec(log)
-match.groups.id // '10421'
+const match = /T-(?<id>\d+)/d.exec(log)
+const { id } = match?.groups ?? {}     // '10421'
+match?.indices.groups.id               // [start, end]
 
 log.replace(/T-(?<id>\d+)/g, '/tickets/$<id>')
 ```
 
-- **`groups.id` вместо `match[1]`.** Скобку в шаблоне подвинули — имя на месте.
-- В замене то же имя: `$<id>`. С 2018 года, в списке давно. **Используем.**
+- **`groups.id` вместо `match[1]`.** В `/T-(\d+)/` цифры — это `match[1]`. Переписали на `/(ticket )?T-(\d+)/` — цифры уже `match[2]`, а старый код всё ещё читает `match[1]`. Имя `id` от порядка скобок не зависит.
+- **В замене то же имя:** `$<id>`. С флагом `d` координаты тоже по имени: `indices.groups.id`.
+- С 2018 года, в списке давно. **Используем.**
 
 ---
 class: thesis-slide answer-slide
