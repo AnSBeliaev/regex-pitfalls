@@ -509,7 +509,6 @@ function highlight(log, query) {
 ```js {2,4}
 function highlight(log, query) {
   const re = new RegExp(RegExp.escape(query), 'gu')
-  const [, id] = log.match(/T-(\d+)/)
   return log.replace(re, (chunk) => '<mark>' + chunk + '</mark>')
 }
 ```
@@ -529,9 +528,9 @@ function highlight(log, query) {
 ````
 
 <v-switch at="1">
-  <template #0><p>Сырой ввод, первое вхождение, match без проверки.</p></template>
-  <template #1><p>Скобка не ломает поиск, подсвечены оба тикета, эмодзи целый.</p></template>
-  <template #2><p>Подсветка по indices. lastIndex больше не общий.</p></template>
+  <template #0><p>Сырой <code>query</code>, <code>replace</code> без <code>/g</code>, <code>match</code> без проверки на <code>null</code>.</p></template>
+  <template #1><p>Скобка не ломает поиск, подсвечены все вхождения, эмодзи целый. <code>match</code> убрали.</p></template>
+  <template #2><p>Подсветка по <code>indices</code>. <code>matchAll</code> не падает на пустом логе.</p></template>
 </v-switch>
 
 <style>
