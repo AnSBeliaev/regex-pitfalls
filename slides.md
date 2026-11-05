@@ -554,8 +554,8 @@ class: thesis-slide links-slide
 
 # Ссылки
 
-- **Не мешать `/g` и `test`.** Не деструктурировать `match` без запасного пути. Не класть сырой ввод в `new RegExp`.
-- **[regex101](https://regex101.com/)** — отладчик, видно сколько шагов занимает матч.
-- **[recheck](https://github.com/makenowjust-labs/recheck)** — ищет суперлинейный перебор.
+- **Три правила:** не мешать `/g` и `test`; не деструктурировать `match` без проверки на `null`; не класть сырой ввод в `new RegExp`.
+- **[regex101](https://regex101.com/)** — отладчик: шаблон и счётчик шагов.
+- **[recheck](https://github.com/makenowjust-labs/recheck)** — проверка на ReDoS перед бэкендом.
 - **[MDN, регулярки](https://developer.mozilla.org/en-US/docs/Web/JavaScript/Guide/Regular_expressions)** и **[RegExp.escape](https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Global_Objects/RegExp/escape)**.
-- **[caniuse](https://caniuse.com/)** и `npx browserslist` — как во втором докладе: процент сам по себе не ответ.
+- **[caniuse](https://caniuse.com/)** и `npx browserslist` — не процент «в мире», а наш список с Chrome 109.
