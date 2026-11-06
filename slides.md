@@ -484,12 +484,13 @@ class: thesis-slide answer-slide
 # Свойства юникода
 
 ```js
-/[a-zA-Z]/.test('М')     // false — кириллицу не берёт
-/\p{Letter}/u.test('М')  // true
-log.match(/\p{Emoji}/u)  // '👍'
+/[a-zA-Z]/.test('М')                    // false — кириллицу не берёт
+/\p{Letter}/u.test('М')                 // true
+log.match(/\p{Emoji}/u)                 // '1' — цифры тоже Emoji
+log.match(/\p{Extended_Pictographic}/u) // '👍'
 ```
 
-- **`\p{Letter}`, `\p{Emoji}` — категории Юникода**, не `[a-z]` и не простыня `\uXXXX`.
+- **`\p{Letter}` — любая буква**, не `[a-z]`. Для картинок-эмодзи — `\p{Extended_Pictographic}`, не `\p{Emoji}`: в `Emoji` входят ещё `0-9`, `#` и `*`.
 - **Без `u` или `v` `\p` — не свойство:** станет обычной буквой `p`, шаблон будет искать не то. Нужен флаг.
 - С `u` с 2018 года, в нашем 109 есть. **Используем.** Составные эмодзи — уже флаг `v`.
 
