@@ -508,14 +508,16 @@ function highlight(log, query) {
   return log.replace(re, '<mark>$&</mark>')
 }
 ```
-```js {2,3}
+```js {2-4}
 function highlight(log, query) {
+  if (!query) return log
   const re = new RegExp(RegExp.escape(query), 'gu')
   return log.replace(re, (chunk) => '<mark>' + chunk + '</mark>')
 }
 ```
-```js {2-10}
+```js {2-11}
 function highlight(log, query) {
+  if (!query) return log
   const re = new RegExp(RegExp.escape(query), 'gdu')
   let out = ''
   let last = 0
@@ -531,8 +533,8 @@ function highlight(log, query) {
 
 <v-switch at="1">
   <template #0><p>Сырой <code>query</code>, <code>replace</code> без <code>/g</code>, <code>match</code> без проверки на <code>null</code>.</p></template>
-  <template #1><p>Скобка не ломает поиск, подсвечены все вхождения, эмодзи целый. <code>match</code> убрали.</p></template>
-  <template #2><p>Подсветка по <code>indices</code>. <code>matchAll</code> не падает на пустом логе.</p></template>
+  <template #1><p>Скобка не ломает поиск, подсвечены все вхождения, эмодзи целый. Пустой <code>query</code> сразу выходим.</p></template>
+  <template #2><p>Подсветка по <code>indices</code>. Пустой поиск не вставляет <code>mark</code> между символами.</p></template>
 </v-switch>
 
 <style>
