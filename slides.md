@@ -508,13 +508,13 @@ function highlight(log, query) {
   return log.replace(re, '<mark>$&</mark>')
 }
 ```
-```js {2,4}
+```js {2,3}
 function highlight(log, query) {
   const re = new RegExp(RegExp.escape(query), 'gu')
   return log.replace(re, (chunk) => '<mark>' + chunk + '</mark>')
 }
 ```
-```js {2-9}
+```js {2-10}
 function highlight(log, query) {
   const re = new RegExp(RegExp.escape(query), 'gdu')
   let out = ''
